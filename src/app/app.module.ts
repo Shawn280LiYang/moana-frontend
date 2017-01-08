@@ -19,9 +19,9 @@ import { MovielistComponent } from "./components/movielist/movielist.component";
 import { TabnavComponent } from "./components/tabnav/tabnav.component";
 import { ListformComponent } from "./components/listform/listform.component";
 import { InputelementComponent } from "./components/inputelement/inputelement.component";
-import {SubmitbtnComponent} from "./components/button/submitbtn.component";
 import {LoginService} from "./service/login.service";
 import {CheckLoginService} from "./service/checklogin.service";
+import {ProfileService} from "./service/profile.service";
 
 @NgModule({
   imports: [
@@ -43,13 +43,13 @@ import {CheckLoginService} from "./service/checklogin.service";
     MovieorderComponent,
     ListformComponent,
     InputelementComponent,
-    SubmitbtnComponent,
   ],
   providers: [
       MovieService,
       UserpanelService,
       LoginService,
       CheckLoginService,
+      ProfileService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewChild, Renderer } from '@angular/core';
 
-//Compoent Decorator
 @Component({
-  //Name of our tag
   selector: 'my-carousel',
-  //Template for the tag
   template: `
 <div class="carousel">
     <i class="car-next" (click)="toNext()"></i>
@@ -27,7 +24,6 @@ import { Component, OnInit, OnDestroy, HostListener, ViewChild, Renderer } from 
     <i class="car-prev" (click)="toPrev()"></i>
 </div>
   `,
-  //Styles for the tag
   styles: [`
 .carousel{
     overflow:hidden;
@@ -82,7 +78,7 @@ import { Component, OnInit, OnDestroy, HostListener, ViewChild, Renderer } from 
 }
   `],
 })
-//Carousel Component itself
+
 export class CarouselComponent {
 	public images = IMAGES;
     active: number = 0;
@@ -138,7 +134,6 @@ export class CarouselComponent {
         _target[this.prev].style.transition = '0s';
         _target[this.next].style.transition = '0s';
     }
-
 
     onDragMove(event) {
         event.preventDefault();

@@ -5,13 +5,8 @@ import { Observable } from "rxjs/Rx";
 @Injectable()
 export class LoginService{
 
-<<<<<<< HEAD
-    private loginUrl = window.location.origin + '/java/taotao/userLogin';
-    private ticketUrl = window.location.origin + '/java/taotao/getLoginTicket';
-=======
     private loginUrl = window.location.origin + '/java/cat/userLogin';
     private ticketUrl = window.location.origin + '/java/cat/getLoginTicket';
->>>>>>> 78a9ca498c53f1f362cb595bb7746d898ab11a90
 
     constructor(private http: Http){}
 

@@ -5,11 +5,7 @@ import { User } from "../shared/user";
 
 @Injectable()
 export class UserpanelService {
-<<<<<<< HEAD
-    private url = 'http://dev5.sprintechco.com/java/taotao/userPanel';
-=======
-    private url = 'http://dev5.sprintechco.com/java/cat/userPanel';
->>>>>>> 78a9ca498c53f1f362cb595bb7746d898ab11a90
+    private url = window.location.origin + '/java/cat/userPanel';
     private data: any;
 
     constructor (private http: Http){}

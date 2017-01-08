@@ -53,6 +53,16 @@ export class ListformComponent implements OnInit, AfterViewInit{
         );
     }
 
+    validateAllInputs(){
+        let submission = true;
+        this.inputElements.forEach(
+            (element) => {
+                if(!element.validateInput()) submission = false;
+            }
+        )
+        return submission;
+    }
+
     getValuesObj(){
         let _self = this;
         let objArr = [{}];
@@ -98,5 +108,6 @@ export class ListformComponent implements OnInit, AfterViewInit{
         }).join('&');
         return url;
     }
+
 
 }

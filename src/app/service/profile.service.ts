@@ -1,23 +1,27 @@
-import { Injectable } from "@angular/core";
-import { Http, Response } from '@angular/http';
+import { Injectable, OnInit } from "@angular/core";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import { Observable } from "rxjs/Rx";
 
 @Injectable()
-export class CheckLoginService{
-    private checkloginUrl = window.location.origin + '/java/cat/checkLogin';
+export class ProfileService {
+    private url = window.location.origin + '/java/cat/update';
+    private data: any;
 
-    constructor(private http: Http){}
+    constructor (private http: Http){}
 
-    checkLogin(): Observable<any>{
-        let _url = this.checkloginUrl;
-        return this.http.get(_url)
+    updateProfile (profile: string): Observable<any> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post(this.url, profile, options)
                    .map(this.extractData)
                    .catch(this.handleError);
     }
 
     private extractData(res: Response){
-        let body = res.json()
-        return body['responseCode'] || {};
+        let body = res.json();
+
+        return body || {};
     }
 
     private handleError (error: Response | any) {
@@ -33,4 +37,5 @@ export class CheckLoginService{
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
+
 }

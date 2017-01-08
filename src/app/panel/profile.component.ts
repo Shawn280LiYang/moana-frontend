@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { Formconf } from "../shared/formconf";
+import {ProfileService} from "../service/profile.service";
 @Component({
     selector: 'my-profile',
     template: `
@@ -52,9 +53,12 @@ export class ProfileComponent implements OnInit{
     profileConf: Formconf = new Formconf('profile');
     imgConf: any = {"imgurl":'img/myheader.png',"label":"头像"};
     isModifyMode: boolean = false;
+    resCode: string;
+    errorMessage: string;
 
 
-    constructor( private router: Router) {
+
+    constructor( private router: Router, private profileService: ProfileService) {
         // Do stuff
     }
 
@@ -67,12 +71,28 @@ export class ProfileComponent implements OnInit{
         this.isModifyMode = true;
     }
 
+    stopModify(){
+        this.isModifyMode = false;
+        this.form.toggleReadonly();
+    }
+
+    //TODO 在此调用save的接口,如果responseCode显示成功那么变回"修改"
     submit(){
-        let obj = this.form.getValuesObj();
-        console.log(obj);
-        if(obj){
-            this.isModifyMode = false;
-            this.form.toggleReadonly();
+        let _form = this.form;
+
+        //if validation passed, submit
+        if ( _form.validateAllInputs() ) {
+            //gather post data
+            let profile = _form.getUrlParams(_form.getValuesObj());
+            //update db using profile service
+            this.profileService.updateProfile(profile)
+                .subscribe(
+                    resCode => {this.resCode = resCode; console.log(this.resCode)},
+                    error => {this.errorMessage = <any>error}
+                );
+        }else{
+            this.stopModify();
         }
+
     }
 }

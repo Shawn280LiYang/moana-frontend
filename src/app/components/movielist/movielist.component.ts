@@ -112,22 +112,17 @@ import { MovieService } from '../../service/movie.service';
 export class MovielistComponent implements OnInit, OnDestroy{
     errorMessage:string;
     movies: Movie[] = null;
+    ticketStocks: Map<string, number>[] = null;
     timer: any;
-    mockStock: any[];
 
     constructor(private movieService:MovieService) {
     }
 
     ngOnInit() {
-        // this.getMovies();
-        this.getMockMovies();
-        this.mockStock = [
-            {"id": 1, "ticketstock": 34},
-            {"id": 2, "ticketstock": 64},
-            {"id": 3, "ticketstock": 84},
-            {"id": 4, "ticketstock": 124},
-        ];
-        this.refreshTicketStock(2000);
+        this.getMovies();
+        this.getTicketStocks();
+
+        this.refreshTicketStocks(2000);
     }
 
     ngOnDestroy(){
@@ -143,6 +138,35 @@ export class MovielistComponent implements OnInit, OnDestroy{
                 error => this.errorMessage = <any>error
             );
     }
+
+    getTicketStocks(){
+        this.movieService.getTicketStock()
+            .subscribe(
+                result => {
+                    this.ticketStocks = result['data'];
+                },
+                error => this.errorMessage = <any>error
+            );
+    }
+
+    private refreshTicketStocks(interval){
+        let _self = this;
+        this.timer = setInterval(this.refreshTicketStockOnce.bind(this,_self),interval);
+    }
+
+    private refreshTicketStockOnce(_self) {
+        // let newStockArr = _self.getTicketStocks(); //正常写
+        let newStockArr = this.mockTicketChange(); //mock
+
+        console.log(newStockArr);
+        this.movies.forEach(
+          (movie,index) => {
+              movie.ticketstock = newStockArr[index]['ticketstock'];
+          }
+        );
+    }
+
+    // === mock data == //
 
     getMockMovies() {
         this.movies = [
@@ -185,29 +209,14 @@ export class MovielistComponent implements OnInit, OnDestroy{
         ];
     }
 
-    private refreshTicketStock(interval){
-        let _self = this;
-        this.timer = setInterval(this.refreshTicketStockOnce.bind(this,_self),interval);
-    }
-
-    private refreshTicketStockOnce(_self) {
-        let newStockArr = _self.getMockNewStock();
-        console.log(newStockArr);
-        this.movies.forEach(
-            (movie,index) => {
-                movie.ticketstock = newStockArr[index]['ticketstock'];
-            }
-        );
-    }
-
     getMockNewStock():any {
         return this.mockTicketChange();
     }
 
     private mockTicketChange(){
-        return this.mockStock.map(
+        return this.ticketStocks.map(
             (element) => {
-                element['ticketstock'] += -3;
+                element['ticketstock'] += -1;
                 return element;
             }
         )

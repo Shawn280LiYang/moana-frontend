@@ -5,13 +5,8 @@ import { Movie } from "../shared/movie";
 
 @Injectable()
 export class MovieService {
-<<<<<<< HEAD
-    private movieUrl = 'http://dev5.sprintechco.com/java/taotao/movieAll';
-    private ticketStockUrl = 'http://dev5.sprintechco.com/java/taotao/ticketStockAll';
-=======
-    private movieUrl = 'http://dev5.sprintechco.com/java/cat/movieAll';
-    private ticketStockUrl = 'http://dev5.sprintechco.com/java/cat/ticketStockAll';
->>>>>>> 78a9ca498c53f1f362cb595bb7746d898ab11a90
+    private movieUrl = window.location.origin + '/java/cat/movieAll';
+    private ticketStockUrl = window.location.origin + '/java/cat/ticketStockAll';
 
     constructor (private http: Http){}
 
@@ -22,7 +17,7 @@ export class MovieService {
     }
 
     getTicketStock(): Observable<any>{
-        return this.http.get(this.movieUrl)
+        return this.http.get(this.ticketStockUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
