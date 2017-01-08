@@ -1,0 +1,25 @@
+<!-- footer-nav -->
+<footer>
+    <nav class="footer-nav-positi">
+        <ul class="list-footer box_box">
+            <li class="active">
+                <a href="javascript:void(0)" (click)="setNgo(0,'')">
+                    <span class="icon-house" [class.icon-house1]="tab===0"></span>
+                    <p>首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <span class="icon-trajectory" [class.icon-trajectory1]="tab===1"></span>
+                    <p>热门</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" (click)="setNgo(2,'userprofile')">
+                    <span class="icon-myown" [class.icon-myown1]="tab===2"></span>
+                    <p>我的</p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</footer>

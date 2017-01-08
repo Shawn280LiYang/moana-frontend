@@ -1,0 +1,31 @@
+<article>
+    <section>
+        <header>
+            <ul>
+                <li>登录/注册</li>
+            </ul>
+        </header>
+        <div class="wrapper-box" style="padding-bottom: 1.10rem;">
+            <my-tabnav [navContent] = "navContent" (onTabChanged) = "catchTabChange($event)"></my-tabnav>
+            <article>
+                <section>
+                    <!--login tab-->
+                    <my-listform [hidden]="tab!==0" [config] = "loginConf" #loginForm></my-listform>
+                    <a *ngIf = "tab===0" class="btn-lg-yellow" href="javascript:void(0)" (click)="loginSubmit()">登录</a>
+
+                    <!--sign up tab-->
+                    <my-listform [hidden]="tab!==1" [config] = "signupConf" #signupForm></my-listform>
+                    <a *ngIf = "tab===1" class="btn-lg-yellow" href="javascript:void(0)" (click)="signupForm.debug()">注册</a>
+
+                    <div *ngIf="tab===0" class="alt-login-wrapper">
+                        <p>- 其他登录方式 -</p>
+                        <div class="logo-wrapper">
+                             <a class="logo-circle wx" href="{{wx}}"></a>
+                             <a class="logo-circle wb" href="{{wb}}"></a>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </section>
+</article>
