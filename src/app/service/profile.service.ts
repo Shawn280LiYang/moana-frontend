@@ -5,7 +5,7 @@ import { Observable } from "rxjs/Rx";
 @Injectable()
 export class ProfileService {
     private url = window.location.origin + '/java/cat/update';
-    private data: any;
+    // private data: any;
 
     constructor (private http: Http){}
 
@@ -14,8 +14,8 @@ export class ProfileService {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this.url, profile, options)
-                   .map(this.extractData)
-                   .catch(this.handleError);
+                        .map(this.extractData)
+                        .catch(this.handleError);
     }
 
     private extractData(res: Response){

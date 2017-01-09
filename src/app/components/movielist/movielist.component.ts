@@ -112,17 +112,18 @@ import { MovieService } from '../../service/movie.service';
 export class MovielistComponent implements OnInit, OnDestroy{
     errorMessage:string;
     movies: Movie[] = null;
-    ticketStocks: Map<string, number>[] = null;
     timer: any;
+    timerInterval: number = 3000;
+    mockStock: any[];
 
     constructor(private movieService:MovieService) {
     }
 
     ngOnInit() {
         this.getMovies();
-        this.getTicketStocks();
-
-        this.refreshTicketStocks(2000);
+        this.refreshTicketStock();
+        // this.getMockMovies();
+        // this.initMockStock();
     }
 
     ngOnDestroy(){
@@ -139,86 +140,91 @@ export class MovielistComponent implements OnInit, OnDestroy{
             );
     }
 
-    getTicketStocks(){
-        this.movieService.getTicketStock()
-            .subscribe(
-                result => {
-                    this.ticketStocks = result['data'];
-                },
-                error => this.errorMessage = <any>error
-            );
-    }
-
-    private refreshTicketStocks(interval){
+    private refreshTicketStock(){
         let _self = this;
-        this.timer = setInterval(this.refreshTicketStockOnce.bind(this,_self),interval);
+        this.timer = setInterval(this.refreshTicketStockOnce.bind(this,_self),_self.timerInterval);
     }
 
-    private refreshTicketStockOnce(_self) {
-        // let newStockArr = _self.getTicketStocks(); //正常写
-        let newStockArr = this.mockTicketChange(); //mock
+    private refreshTicketStockOnce(_self){
+        _self.movieService.getTicketStock()
+                          .subscribe(
+                              ticketStock => {
+                                  _self.changeStockOnTemplate(ticketStock);
+                                  console.log(ticketStock);
+                              },
+                              error => this.errorMessage = <any>error
+                          )
+    }
 
-        console.log(newStockArr);
+    private changeStockOnTemplate(newStockArr){
         this.movies.forEach(
-          (movie,index) => {
-              movie.ticketstock = newStockArr[index]['ticketstock'];
-          }
+            (movie,index) => {
+                movie.ticketstock = newStockArr[index]['ticketstock'];
+            }
         );
     }
 
-    // === mock data == //
 
-    getMockMovies() {
-        this.movies = [
-            {
-                "id": 1,
-                "name": "机器人总动员1",
-                "ticketstock": 300,
-                "showtime": "随便写写",
-                "briefintro": "啦啦啦",
-                "imgurl": "img/wall-e.jpg",
-                "tags": ["冒险", "科幻", "家庭"]
-            },
-            {
-                "id": 2,
-                "name": "机器人总动员2",
-                "ticketstock": 67,
-                "showtime": "随便写写",
-                "briefintro": "啦啦啦",
-                "imgurl": "img/wall-e.jpg",
-                "tags": ["冒险", "科幻", "家庭"]
-            },
-            {
-                "id": 3,
-                "name": "机器人总动员3",
-                "ticketstock": 250,
-                "showtime": "随便写写",
-                "briefintro": "啦啦啦",
-                "imgurl": "img/wall-e.jpg",
-                "tags": ["冒险", "科幻", "家庭"]
-            },
-            {
-                "id": 4,
-                "name": "机器人总动员4",
-                "ticketstock": 160,
-                "showtime": "随便写写",
-                "briefintro": "啦啦啦",
-                "imgurl": "img/wall-e.jpg",
-                "tags": ["冒险", "科幻", "家庭"]
-            },
-        ];
-    }
+    // initMockStock(){
+    //     this.mockStock = [
+    //         {"id": 1, "ticketstock": 34},
+    //         {"id": 2, "ticketstock": 64},
+    //         {"id": 3, "ticketstock": 84},
+    //         {"id": 4, "ticketstock": 124},
+    //     ];
+    // }
 
-    getMockNewStock():any {
-        return this.mockTicketChange();
-    }
+    // getMockMovies() {
+    //     this.movies = [
+    //         {
+    //             "id": 1,
+    //             "name": "机器人总动员1",
+    //             "ticketstock": 300,
+    //             "showtime": "随便写写",
+    //             "briefintro": "啦啦啦",
+    //             "imgurl": "img/wall-e.jpg",
+    //             "tags": ["冒险", "科幻", "家庭"]
+    //         },
+    //         {
+    //             "id": 2,
+    //             "name": "机器人总动员2",
+    //             "ticketstock": 67,
+    //             "showtime": "随便写写",
+    //             "briefintro": "啦啦啦",
+    //             "imgurl": "img/wall-e.jpg",
+    //             "tags": ["冒险", "科幻", "家庭"]
+    //         },
+    //         {
+    //             "id": 3,
+    //             "name": "机器人总动员3",
+    //             "ticketstock": 250,
+    //             "showtime": "随便写写",
+    //             "briefintro": "啦啦啦",
+    //             "imgurl": "img/wall-e.jpg",
+    //             "tags": ["冒险", "科幻", "家庭"]
+    //         },
+    //         {
+    //             "id": 4,
+    //             "name": "机器人总动员4",
+    //             "ticketstock": 160,
+    //             "showtime": "随便写写",
+    //             "briefintro": "啦啦啦",
+    //             "imgurl": "img/wall-e.jpg",
+    //             "tags": ["冒险", "科幻", "家庭"]
+    //         },
+    //     ];
+    // }
 
-    private mockTicketChange(){
-        return this.ticketStocks.map(
-            (element) => {
-                element['ticketstock'] += -1;
-                return element;
-            }
-        )
-    }
+    // getMockNewStock():any {
+    //     return this.mockTicketChange();
+    // }
+
+    // private mockTicketChange(){
+    //     return this.mockStock.map(
+    //         (element) => {
+    //             element['ticketstock'] += -3;
+    //             return element;
+    //         }
+    //     )
+    // }
 }

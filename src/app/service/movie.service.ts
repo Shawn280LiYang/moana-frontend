@@ -16,16 +16,15 @@ export class MovieService {
                         .catch(this.handleError);
     }
 
-    getTicketStock(): Observable<any>{
+    getTicketStock(): Observable<any[]>{
         return this.http.get(this.ticketStockUrl)
-            .map(this.extractData)
-            .catch(this.handleError);
+                        .map(this.extractData)
+                        .catch(this.handleError);
     }
 
     private extractData(res: Response){
         let body = res.json();
-        console.log('service res body');
-        return body || {};
+        return body.data || [];
     }
 
     private handleError (error: Response | any) {

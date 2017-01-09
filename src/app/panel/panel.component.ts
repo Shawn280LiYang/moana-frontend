@@ -51,18 +51,18 @@ export class PanelComponent implements OnInit {
     _self.router.navigate(['./'+des]);
   }
 
-  getUserData(){
-    let _self = this;
+    getUserData(){
+        let _self = this;
 
-    this.userpanelService.getUserData()
-      .subscribe(
-        userData => {
-          _self.userData = userData;
-          _self.orderList = userData['orderDtoList'];
-          console.log('in component');
-          console.log(this.userData);
-        },
-        error => this.errorMessage = <any>error
-      );
-  }
+        this.userpanelService.getUserData()
+            .subscribe(
+                userData => {
+                    _self.userData = userData;
+                    _self.orderList = userData['orderDtoList'];
+                    console.log('in component');
+                    console.log(this.userData);
+                },
+                error => this.errorMessage = <any>error
+            );
+    }
 }

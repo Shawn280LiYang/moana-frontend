@@ -25,7 +25,7 @@ export class FooterComponent {
   }
   
   checkLogin(){
-      let _self = this;
+    let _self = this;
     this.checkLoginService.checkLogin()
         .subscribe(
             resCode => {
