@@ -1,5 +1,5 @@
 export class Formconf{
-    inputConf: any;
+    inputConf: any[];
 
     constructor(formName: string){
         if(formName === 'login'){
@@ -29,8 +29,8 @@ export class Formconf{
 
     private setProfileFormconf(){
         this.inputConf =[
-            {'label':'昵称','type':'text','placeholder':'请输入您的昵称','value':'Angelina Jolie','isReadonly':true,'isRightAligned':true,'name':'nickname'},
-            {'label':'邮箱','type':'email','placeholder':'请输入您的邮箱','value':'jolie@gmail.com','isReadonly':true,'isRightAligned':true,'name':'email'},
+            {'label':'昵称','type':'text','placeholder':'请输入您的昵称','value':'','isReadonly':true,'isRightAligned':true,'name':'nickname'},
+            {'label':'邮箱','type':'email','placeholder':'请输入您的邮箱','value':'','isReadonly':true,'isRightAligned':true,'name':'email'},
         ]
     }
 }

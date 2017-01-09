@@ -16,8 +16,8 @@ export class CheckLoginService{
     }
 
     private extractData(res: Response){
-        let body = res.json()
-        return body['responseCode'] || {};
+        let body = res.json();
+        return body['responseCode'];
     }
 
     private handleError (error: Response | any) {
@@ -33,4 +33,6 @@ export class CheckLoginService{
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
+    
+    
 }

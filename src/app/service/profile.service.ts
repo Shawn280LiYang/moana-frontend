@@ -5,27 +5,40 @@ import { Observable } from "rxjs/Rx";
 @Injectable()
 export class ProfileService {
     private url = window.location.origin + '/java/cat/update';
-    // private data: any;
+    private getUrl = window.location.origin + '/java/cat/userInfo';
 
     constructor (private http: Http){}
 
     updateProfile (profile: string): Observable<any> {
+        let _url = this.url + '?' + profile;
+        console.log(_url);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.url, profile, options)
+        return this.http.post(_url,profile,options)
                         .map(this.extractData)
                         .catch(this.handleError);
+    }
+
+    getProfile(): Observable<any>{
+        return this.http.get(this.getUrl)
+                        .map(this.extractUser)
+                        .catch(this.handleError);
+    }
+
+    private extractUser(res: Response){
+        let body = res.json();
+        if(body['responseCode'] == 0) return body['data'];
+        else return false;
     }
 
     private extractData(res: Response){
         let body = res.json();
 
-        return body || {};
+        return body['responseCode'];
     }
 
     private handleError (error: Response | any) {
-        // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';

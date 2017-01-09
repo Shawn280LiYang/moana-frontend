@@ -77,12 +77,16 @@ export class ListformComponent implements OnInit, AfterViewInit{
     }
 
     getPasswordEncrypted(salt){
+        // let debug = 1483959796;
         let CryptoJS = window["CryptoJS"];
         let pswd = this.getValuesObj()['password'];
+        console.log("timestamp: "+ salt);
+        console.log("password: "+ pswd);
         if(pswd){
+            console.log(CryptoJS.MD5((CryptoJS.MD5(pswd) + salt).toString()).toString());
             return CryptoJS.MD5((CryptoJS.MD5(pswd) + salt).toString()).toString();
         }
-        return "0";
+        return false;
     }
 
     getUsernameEntry(){

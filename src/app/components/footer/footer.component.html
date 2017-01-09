@@ -3,7 +3,7 @@
     <nav class="footer-nav-positi">
         <ul class="list-footer box_box">
             <li class="active">
-                <a href="javascript:void(0)" (click)="setNgo(0,'')">
+                <a href="javascript:void(0)" (click)="go('')">
                     <span class="icon-house" [class.icon-house1]="tab===0"></span>
                     <p>首页</p>
                 </a>
@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" (click)="checkLogin()">
+                <a href="javascript:void(0)" (click)="go('userpanel')">
                     <span class="icon-myown" [class.icon-myown1]="tab===2"></span>
                     <p>我的</p>
                 </a>

@@ -114,27 +114,24 @@ export class MovielistComponent implements OnInit, OnDestroy{
     movies: Movie[] = null;
     timer: any;
     timerInterval: number = 3000;
-    mockStock: any[];
 
     constructor(private movieService:MovieService) {
     }
 
     ngOnInit() {
         this.getMovies();
-        this.refreshTicketStock();
-        // this.getMockMovies();
-        // this.initMockStock();
     }
 
     ngOnDestroy(){
         clearInterval(this.timer);
     }
 
-    getMovies() {
+    private getMovies() {
         this.movieService.getMovies()
             .subscribe(
                 movies => {
                     this.movies = movies;
+                    this.refreshTicketStock();
                 },
                 error => this.errorMessage = <any>error
             );
@@ -150,7 +147,6 @@ export class MovielistComponent implements OnInit, OnDestroy{
                           .subscribe(
                               ticketStock => {
                                   _self.changeStockOnTemplate(ticketStock);
-                                  console.log(ticketStock);
                               },
                               error => this.errorMessage = <any>error
                           )
@@ -164,67 +160,4 @@ export class MovielistComponent implements OnInit, OnDestroy{
         );
     }
 
-
-    // initMockStock(){
-    //     this.mockStock = [
-    //         {"id": 1, "ticketstock": 34},
-    //         {"id": 2, "ticketstock": 64},
-    //         {"id": 3, "ticketstock": 84},
-    //         {"id": 4, "ticketstock": 124},
-    //     ];
-    // }
-
-    // getMockMovies() {
-    //     this.movies = [
-    //         {
-    //             "id": 1,
-    //             "name": "机器人总动员1",
-    //             "ticketstock": 300,
-    //             "showtime": "随便写写",
-    //             "briefintro": "啦啦啦",
-    //             "imgurl": "img/wall-e.jpg",
-    //             "tags": ["冒险", "科幻", "家庭"]
-    //         },
-    //         {
-    //             "id": 2,
-    //             "name": "机器人总动员2",
-    //             "ticketstock": 67,
-    //             "showtime": "随便写写",
-    //             "briefintro": "啦啦啦",
-    //             "imgurl": "img/wall-e.jpg",
-    //             "tags": ["冒险", "科幻", "家庭"]
-    //         },
-    //         {
-    //             "id": 3,
-    //             "name": "机器人总动员3",
-    //             "ticketstock": 250,
-    //             "showtime": "随便写写",
-    //             "briefintro": "啦啦啦",
-    //             "imgurl": "img/wall-e.jpg",
-    //             "tags": ["冒险", "科幻", "家庭"]
-    //         },
-    //         {
-    //             "id": 4,
-    //             "name": "机器人总动员4",
-    //             "ticketstock": 160,
-    //             "showtime": "随便写写",
-    //             "briefintro": "啦啦啦",
-    //             "imgurl": "img/wall-e.jpg",
-    //             "tags": ["冒险", "科幻", "家庭"]
-    //         },
-    //     ];
-    // }
-
-    // getMockNewStock():any {
-    //     return this.mockTicketChange();
-    // }
-
-    // private mockTicketChange(){
-    //     return this.mockStock.map(
-    //         (element) => {
-    //             element['ticketstock'] += -3;
-    //             return element;
-    //         }
-    //     )
-    // }
 }

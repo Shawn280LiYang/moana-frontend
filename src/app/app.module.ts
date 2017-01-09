@@ -22,6 +22,7 @@ import { InputelementComponent } from "./components/inputelement/inputelement.co
 import {LoginService} from "./service/login.service";
 import {CheckLoginService} from "./service/checklogin.service";
 import {ProfileService} from "./service/profile.service";
+import {FooterService} from "./service/footer.service";
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import {ProfileService} from "./service/profile.service";
       LoginService,
       CheckLoginService,
       ProfileService,
+      FooterService,
   ],
   bootstrap: [AppComponent]
 })

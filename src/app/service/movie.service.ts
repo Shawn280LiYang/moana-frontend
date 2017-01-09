@@ -28,7 +28,6 @@ export class MovieService {
     }
 
     private handleError (error: Response | any) {
-        // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';
