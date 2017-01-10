@@ -19,10 +19,12 @@ import { MovielistComponent } from "./components/movielist/movielist.component";
 import { TabnavComponent } from "./components/tabnav/tabnav.component";
 import { ListformComponent } from "./components/listform/listform.component";
 import { InputelementComponent } from "./components/inputelement/inputelement.component";
-import {LoginService} from "./service/login.service";
-import {CheckLoginService} from "./service/checklogin.service";
-import {ProfileService} from "./service/profile.service";
-import {FooterService} from "./service/footer.service";
+import { LoginService } from "./service/login.service";
+import { CheckLoginService } from "./service/checklogin.service";
+import { ProfileService } from "./service/profile.service";
+import { FooterService } from "./service/footer.service";
+import { ThirdPartyDivComponent } from "./components/thirdPartyDiv/thirdpartydiv.component";
+import {ThirdPartyPanelComponent} from "./panel/thirdpartypanel.component";
 
 @NgModule({
   imports: [
@@ -44,6 +46,8 @@ import {FooterService} from "./service/footer.service";
     MovieorderComponent,
     ListformComponent,
     InputelementComponent,
+    ThirdPartyDivComponent,
+      ThirdPartyPanelComponent,
   ],
   providers: [
       MovieService,

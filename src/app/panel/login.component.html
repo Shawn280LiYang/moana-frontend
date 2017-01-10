@@ -17,13 +17,9 @@
                     <my-listform [hidden]="tab!==1" [config] = "signupConf" #signupForm></my-listform>
                     <a *ngIf = "tab===1" class="btn-lg-yellow" href="javascript:void(0)" (click)="signupForm.debug()">注册</a>
 
-                    <div *ngIf="tab===0" class="alt-login-wrapper">
-                        <p>- 其他登录方式 -</p>
-                        <div class="logo-wrapper">
-                             <a class="logo-circle wx" href="{{wx}}"></a>
-                             <a class="logo-circle wb" href="{{wb}}"></a>
-                        </div>
-                    </div>
+                    <!--third party login portal. Currently we have wx & wb-->
+                    <my-thirdpartydiv *ngIf="tab===0"></my-thirdpartydiv>
+
                 </section>
             </article>
         </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild } from '@angular/core';
 import {Formconf} from "../shared/formconf";
 import {LoginService} from "../service/login.service";
 import {Router} from "@angular/router";
@@ -10,7 +10,7 @@ import {CheckLoginService} from "../service/checklogin.service";
     templateUrl: './login.component.html',
 })
 
-export class LoginComponent implements OnInit, AfterViewInit{
+export class LoginComponent implements OnInit {
     wb: string;
     wx: string;
     errorMessage: string;
@@ -49,30 +49,7 @@ export class LoginComponent implements OnInit, AfterViewInit{
             );
     }
 
-    ngAfterViewInit(){
-        this.wb = 'https://api.weibo.com/oauth2/authorize?client_id=1724529937&redirect_uri='
-            + this.getWbRedirectUrl() + '&display=mobile&response_type=code';
-
-        this.wx = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39c79c1bbec2a29b&redirect_uri='
-            + this.getWxRedirectUrl() + '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-    }
-
-    getWbRedirectUrl() {
-        return encodeURIComponent(
-            // window.location.origin + '/java/moana/wbLogin?backUrl='
-            // + encodeURIComponent(window.location + '/index.html#/userpanel')
-            window.location.origin + '/java/moana/wbLogin'
-        );
-    }
-
-    getWxRedirectUrl() {
-        return encodeURIComponent(
-            // window.location.origin + '/java/moana/wbLogin?backUrl='
-            // + encodeURIComponent(window.location + '/index.html#/userpanel')
-            window.location.origin + '/java/moana/wxLogin'
-        );
-    }
-
+    
     isTab(tab){
         return this.tab === tab;
     }

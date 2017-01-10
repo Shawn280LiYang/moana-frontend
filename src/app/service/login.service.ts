@@ -7,6 +7,7 @@ export class LoginService{
 
     private loginUrl = window.location.origin + '/java/cat/userLogin';
     private ticketUrl = window.location.origin + '/java/cat/getLoginTicket';
+    private thirdPartyLoginUrl = window.location.origin + '/java/cat/getAppid';
 
     constructor(private http: Http){}
 
@@ -23,6 +24,19 @@ export class LoginService{
         return this.http.get(_url)
                         .map(this.getTicket)
                         .catch(this.handleError);
+    }
+
+    getAppid(thirdParty){
+        let _url = this.thirdPartyLoginUrl + thirdParty;
+
+        return this.http.get(_url)
+                   .map(this.extractAppid)
+                   .catch(this.handleError);
+    }
+
+    private extractAppid(res: Response){
+        let body = res.json();
+        return body['appid'] || {};
     }
 
     private getTicket(res: Response){

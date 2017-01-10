@@ -93,12 +93,9 @@ export class PanelComponent implements OnInit {
         this.checkLoginService.checkLogin()
             .subscribe(
                 resCode => {
-                    let isLogin = (resCode == '0');
-                    if(isLogin){
-                        this.getUserData();
-                    }else{
-                        this.go('login');
-                    }
+                    if (resCode == 0 ) this.getUserData();
+                    else if (resCode == -1) this.go('profile');
+                    else this.go('login');
                 },
                 error => this.errorMessage = <any>error
             );

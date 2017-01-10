@@ -90,7 +90,6 @@ export class ProfileComponent implements OnInit{
         this.form.toggleReadonly();
     }
 
-    //TODO 在此调用save的接口,如果responseCode显示成功那么变回"修改"
     submit(){
         let _form = this.form;
 
@@ -114,19 +113,20 @@ export class ProfileComponent implements OnInit{
         }else{
             this.stopModify();
         }
-
     }
 
     checkLogin(){
         this.checkLoginService.checkLogin()
             .subscribe(
                 resCode => {
-                    let isLogin = (resCode == '0');
-                    if(!isLogin){
-                        this.go('login');
-                    }else{
+                    if (resCode == 0){
                         this.getProfile();
                     }
+                    else if (resCode == 40005) {
+                        this.getProfile();
+                        this.fireModify();
+                    }
+                    else this.go('login');
                 },
                 error => this.errorMessage = <any>error
             );
