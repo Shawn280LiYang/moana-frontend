@@ -19,10 +19,13 @@ import {CheckLoginService} from "../service/checklogin.service";
             <div *ngIf="notify" class="notification">亲~~修改发生了问题,请重试哦~~</div>
             <a *ngIf = "!isModifyMode" class="btn-lg-yellow" href="javascript:void(0)" (click)="fireModify()">修改</a>
             <a *ngIf = "isModifyMode" class="btn-lg-red" href="javascript:void(0)" (click)="submit()">确认</a>
+            <a class="logout-wrapper" href="{{logoutHref}}">
+                <div class="logout"> &#x2715; </div>
+                <p class="logout-label">退出登录</p>
+            </a>
         </div>
     </section>
 </article>
-    
     `,
     styles:[`
     .user-info p{
@@ -50,6 +53,28 @@ import {CheckLoginService} from "../service/checklogin.service";
         height:0.6rem;
         line-height:0.6rem;
     }
+    .logout-wrapper{
+         display:block;
+         margin: 2rem auto 0 auto;
+        width: 1.5rem;
+    }
+    .logout{
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        vertical-align: middle;
+        line-height: 1rem;
+        color: #fff;
+        background: #e54847;
+        text-align: center;
+        font-size: 0.5rem;
+        margin:0 auto 0.2rem auto;
+    }
+    .logout-label{
+        text-align: center;
+        color: #000;
+        font-weight: bold;
+    }
     
     `],
 })
@@ -64,6 +89,7 @@ export class ProfileComponent implements OnInit{
     resCode: string;
     errorMessage: string;
     tab:number = 2;
+    logoutHref: string;
 
 
     constructor( private router: Router,
@@ -76,7 +102,7 @@ export class ProfileComponent implements OnInit{
     ngOnInit() {
         this.footerService.changeTab(this.tab);
         this.checkLogin();
-
+        this.logoutHref = window.location.origin + '/java/cat/logout' + '?redirectUrl=' + window.location.origin;
     }
 
     fireModify(){
@@ -152,5 +178,9 @@ export class ProfileComponent implements OnInit{
     go(des) {
         let _self = this;
         _self.router.navigate(['./'+des]);
+    }
+
+    logout(){
+        console.log("logout");
     }
 }

@@ -10,7 +10,7 @@ export class LoginService{
     private thirdPartyLoginUrl = window.location.origin + '/java/cat/getAppid';
 
     constructor(private http: Http){}
-
+    
     loginUser(userInfo:any): Observable<any>{
         let _url = this.loginUrl + "?"+ userInfo;
         console.log(_url);

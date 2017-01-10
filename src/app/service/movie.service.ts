@@ -7,6 +7,7 @@ import { Movie } from "../shared/movie";
 export class MovieService {
     private movieUrl = window.location.origin + '/java/cat/movieAll';
     private ticketStockUrl = window.location.origin + '/java/cat/ticketStockAll';
+    private buyUrl = window.location.origin + '/java/cat/rush/';
 
     constructor (private http: Http){}
 
@@ -20,6 +21,18 @@ export class MovieService {
         return this.http.get(this.ticketStockUrl)
                         .map(this.extractData)
                         .catch(this.handleError);
+    }
+
+    buyTicket(movieid): Observable<any>{
+        let _url = this.buyUrl + movieid;
+        return this.http.get(_url)
+                        .map(this.extractResCode)
+                        .catch(this.handleError);
+    }
+
+    private extractResCode(res: Response){
+        let body = res.json();
+        return body['responseCode'];
     }
 
     private extractData(res: Response){

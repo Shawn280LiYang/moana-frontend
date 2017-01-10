@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Movie } from '../../shared/movie';
 import { MovieService } from '../../service/movie.service';
+import {CheckLoginService} from "../../service/checklogin.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "my-movielist",
     template:`
-            <div class="wrapper-content" *ngFor="let movie of movies">
+            <div class="wrapper-content" *ngFor="let movie of movies; let i=index;">
                 <div class="mov-img-box">
                     <img class="mov-img" src="{{movie.imgurl}}">
                 </div>
@@ -19,7 +21,7 @@ import { MovieService } from '../../service/movie.service';
                     <div class="ticket-left">
                         剩余<span>{{movie.ticketstock}}</span>张
                     </div>
-                    <a class="btn-buy" href="javascript:void(0)">购票</a>
+                    <a class="btn-buy" href="javascript:void(0)" (click) = "checkLogin(i)">购票</a>
                 </div>
             </div>
     `,
@@ -115,7 +117,9 @@ export class MovielistComponent implements OnInit, OnDestroy{
     timer: any;
     timerInterval: number = 3000;
 
-    constructor(private movieService:MovieService) {
+    constructor(private movieService:MovieService,
+                private checkLoginService: CheckLoginService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -160,4 +164,30 @@ export class MovielistComponent implements OnInit, OnDestroy{
         );
     }
 
+    private buyTicket(movieid){
+        this.movieService.buyTicket(movieid).subscribe(
+            (resCode) => {
+                console.log(resCode);
+                //Do something;
+            },
+            error => this.errorMessage = <any>error
+        )
+    }
+
+    checkLogin(index){
+        this.checkLoginService.checkLogin()
+            .subscribe(
+                resCode => {
+                    if ( resCode == 40001 ) this.go('login');
+                    else if ( resCode == 40005 ) this.go('userprofile');
+                    else if ( resCode == 0 ) this.buyTicket(this.movies[index]['id']);
+                },
+                error => this.errorMessage = <any>error
+            );
+    }
+
+    go(des) {
+        let _self = this;
+        _self.router.navigate(['./'+des]);
+    }
 }

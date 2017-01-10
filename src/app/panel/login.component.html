@@ -18,7 +18,7 @@
                     <a *ngIf = "tab===1" class="btn-lg-yellow" href="javascript:void(0)" (click)="signupForm.debug()">注册</a>
 
                     <!--third party login portal. Currently we have wx & wb-->
-                    <my-thirdpartydiv *ngIf="tab===0"></my-thirdpartydiv>
+                    <my-thirdpartydiv [hidden]="tab!==0"></my-thirdpartydiv>
 
                 </section>
             </article>

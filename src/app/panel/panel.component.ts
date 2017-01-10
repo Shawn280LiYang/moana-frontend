@@ -34,15 +34,51 @@ import {FooterService} from "../service/footer.service";
 </article>
     `,
     styles:[`
-    .notification{
-        border: 1px solid;
-        border-radius: 0.05rem;
-        color: #e54847;
-        height: 0.60rem;
-        line-height: 0.60rem;
-        text-align: center;
-        margin: 0.3rem 0.3rem;
-    }
+    .wrapper-mybanner{
+	position: relative;
+	margin-top: -0.28rem;
+	padding: 0.78rem 0.30rem 0;
+    width: 100%;
+    height: 2.97rem;
+    background: url("img/mybanner.png") no-repeat center;
+    background-size: contain;
+}
+.content-myheader{
+	margin-top: 0.23rem;
+}
+
+.content-myheader img{
+	display: inline-block;
+	width: 1.32rem;
+	height: 1.32rem;
+	border-radius: 50%;
+	border: 10px solid rgba(255,255,255,0.2);
+}
+.content-myname{
+	margin-left: 0.42rem;
+	font-size: 0.28rem;
+	color: #050505;
+	line-height: 0.4rem;
+}
+.content-myname h5{
+	font-size: 0.36rem;
+	color: #fff;
+	line-height: 1.12rem;
+	margin-bottom: 0.20rem;
+}
+.content-myname p{
+	margin-top: 0.10rem; 
+}
+    
+.notification{
+    border: 1px solid;
+    border-radius: 0.05rem;
+    color: #e54847;
+    height: 0.60rem;
+    line-height: 0.60rem;
+    text-align: center;
+    margin: 0.3rem 0.3rem;
+}
     `],
 })
 export class PanelComponent implements OnInit {
