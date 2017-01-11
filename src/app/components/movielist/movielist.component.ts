@@ -50,6 +50,7 @@ import {Router} from "@angular/router";
     font-size:0.3rem;
     margin:0 0.1rem 0 0.1rem;
     flex:1;
+    line-height:0.29rem;
 }
 .wrapper-content .mov-description-box .mov-title{
     font-size:0.28rem;
