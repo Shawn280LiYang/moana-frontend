@@ -102,7 +102,8 @@ export class PanelComponent implements OnInit {
      * if session expired/not logged in, loading login/register page
      */
       this.footerService.changeTab(this.tab);
-    this.checkLogin();
+
+      this.checkLogin();
   }
 
   go(des) {

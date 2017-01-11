@@ -200,4 +200,6 @@ var IMAGES: Object[] = [
 	{ "url": "img/banner1.jpg" },
 	{ "url": "img/banner2.jpg" },
 	{ "url": "img/banner3.jpg" },
+  { "url": "img/banner4.jpg" },
+  { "url": "img/banner5.jpg" },
 ];

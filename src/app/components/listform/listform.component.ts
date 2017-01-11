@@ -63,6 +63,22 @@ export class ListformComponent implements OnInit, AfterViewInit{
         return submission;
     }
 
+   validatePasswordConfirm(){
+        let submission = true;
+
+        // TODO 考虑把confirm,还有username ele先取出存成变量
+        if(this.getValuesObj()['password'] != this.getValuesObj()['confirm']){
+            this.inputElements.forEach(
+                (element) => {
+                  if(element.input['name'] == 'confirm') element.isInvalid = true;
+                }
+            )
+            submission =false;
+        }
+
+        return submission;
+    }
+
     getValuesObj(){
         let _self = this;
         let objArr = [{}];
@@ -72,6 +88,21 @@ export class ListformComponent implements OnInit, AfterViewInit{
                 arr = ele.getInputValue();
                 return arr;
             }
+        );
+        return Object.assign.apply(null,objArr);
+    }
+
+    getValuesObjExceptPwd(){
+        let _self = this;
+        let objArr = [{}];
+        objArr = this.inputElements.map(
+          (ele) => {
+            if(ele.input['name']!='password' && ele.input['name']!='confirm') {
+                let arr = [];
+                arr = ele.getInputValue();
+                return arr;
+            }
+          }
         );
         return Object.assign.apply(null,objArr);
     }
@@ -89,22 +120,34 @@ export class ListformComponent implements OnInit, AfterViewInit{
         return false;
     }
 
-    getUsernameEntry(){
-        let _self = this;
-        let objArr = [];
-        objArr = this.inputElements.map(
-            (ele) => {
-                let arr = [];
-                arr = ele.getInputValue();
-                return arr;
-            }
-        );
-        return objArr.filter(this.filterByUsername)[0];
+    getSignupPasswordEncrypted(){
+        let CryptoJS = window["CryptoJS"];
+        let pswd = this.getValuesObj()['password'];
+        console.log("password: "+ pswd);
+        if(pswd){
+            return CryptoJS.MD5(pswd).toString();
+        }
+        return false;
     }
 
-    private filterByUsername(element){
-        return Object.getOwnPropertyNames(element)[0] == "username";
-    }
+    // replace by getValuesObjExceptPsd
+    // 但是取单个valueObject的时候可以用这个
+    // getUsernameEntry(){
+    //     let _self = this;
+    //     let objArr = [];
+    //     objArr = this.inputElements.map(
+    //         (ele) => {
+    //             let arr = [];
+    //             arr = ele.getInputValue();
+    //             return arr;
+    //         }
+    //     );
+    //     return objArr.filter(this.filterByUsername)[0];
+    // }
+    //
+    // private filterByUsername(element){
+    //     return Object.getOwnPropertyNames(element)[0] == "username";
+    // }
 
     getUrlParams(obj){
         let url = Object.keys(obj).map(function(k) {
@@ -112,6 +155,4 @@ export class ListformComponent implements OnInit, AfterViewInit{
         }).join('&');
         return url;
     }
-
-
 }

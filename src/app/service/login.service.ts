@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Response } from '@angular/http';
+import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import { Observable } from "rxjs/Rx";
 
 @Injectable()
@@ -8,6 +8,8 @@ export class LoginService{
     private loginUrl = window.location.origin + '/java/cat/userLogin';
     private ticketUrl = window.location.origin + '/java/cat/getLoginTicket';
     private thirdPartyLoginUrl = window.location.origin + '/java/cat/getAppid';
+
+    private signupUrl = window.location.origin + '/java/cat/signUp';
 
     constructor(private http: Http){}
     
@@ -30,8 +32,20 @@ export class LoginService{
         let _url = this.thirdPartyLoginUrl + thirdParty;
 
         return this.http.get(_url)
-                   .map(this.extractAppid)
-                   .catch(this.handleError);
+                        .map(this.extractAppid)
+                        .catch(this.handleError);
+    }
+
+    signupUser(userInfo:any): Observable<any>{
+        let _url = this.signupUrl + '?' + userInfo;
+        console.log(_url);
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post(_url,userInfo,options)
+                        .map(this.extractSignupRtCode)
+                        .catch(this.handleError);
     }
 
     private extractAppid(res: Response){
@@ -46,6 +60,11 @@ export class LoginService{
     }
 
     private extractLoginRtCode(res: Response){
+        let body = res.json();
+        return body['responseCode'];
+    }
+
+    private extractSignupRtCode(res: Response){
         let body = res.json();
         return body['responseCode'];
     }

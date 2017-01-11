@@ -15,7 +15,7 @@
 
                     <!--sign up tab-->
                     <my-listform [hidden]="tab!==1" [config] = "signupConf" #signupForm></my-listform>
-                    <a *ngIf = "tab===1" class="btn-lg-yellow" href="javascript:void(0)" (click)="signupForm.debug()">注册</a>
+                    <a *ngIf = "tab===1" class="btn-lg-yellow" href="javascript:void(0)" (click)="signupSubmit()">注册</a>
 
                     <!--third party login portal. Currently we have wx & wb-->
                     <my-thirdpartydiv [hidden]="tab!==0"></my-thirdpartydiv>

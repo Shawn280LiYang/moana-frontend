@@ -13,13 +13,13 @@ export class Formconf{
 
     private setLoginFormconf(){
         this.inputConf = [
-            {'label':'用户名','type':'email','placeholder':'请输入您注册的邮箱','value':'','isReadonly':false,'name':'username'},
+            {'label':'用户名','type':'text','placeholder':'请输入您的用户名','value':'','isReadonly':false,'name':'username'},
             {'label':'密码','type':'password','placeholder':'请输入您的密码','value':'','isReadonly':false,'name':'password'}
         ];
     }
     private setSignupFormconf(){
         this.inputConf = [
-            {'label':'用户名','type':'email','placeholder':'请输入您的邮箱','value':'','isReadonly':false,'name':'username'},
+            {'label':'用户名','type':'text','placeholder':'请输入您的用户名(将用于登陆)','value':'','isReadonly':false,'name':'username'},
             {'label':'邮箱','type':'email','placeholder':'请输入您的邮箱','value':'','isReadonly':false,'name':'email'},
             {'label':'昵称','type':'text','placeholder':'请输入昵称','value':'','isReadonly':false,'name':'nickname'},
             {'label':'密码','type':'password','placeholder':'请输入密码','value':'','isReadonly':false,'name':'password'},

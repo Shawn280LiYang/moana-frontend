@@ -15,8 +15,9 @@ export class LoginComponent implements OnInit {
     wx: string;
     errorMessage: string;
     loginRtCode: number;
+    signupRtCode: number;
     ticket: number;
-    navContent: string[] = ['账号密码登录','邮箱注册'];
+    navContent: string[] = ['账号密码登录','注册账号'];
     tab: number = 0;
     loginConf: any = new Formconf('login');
     signupConf: any = new Formconf('signup');
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
 
     
     @ViewChild('loginForm') loginForm;
+    @ViewChild('signupForm') signupForm;
 
     constructor(private loginService:LoginService,
                 private router:Router,
@@ -59,11 +61,20 @@ export class LoginComponent implements OnInit {
         this.tab = tab;
     }
 
-    loginSubmit(){
+    loginSubmit() {
         //gather data from login form
         let _form = this.loginForm;
-        let usernameUrlStr = _form.getUrlParams(_form.getUsernameEntry());
 
+        if (_form.validateAllInputs()) {
+            let usernameUrlStr = _form.getUrlParams(_form.getValuesObjExceptPwd());
+            this.goLogin(usernameUrlStr);
+        }else{
+            console.log('validateAllInputs 失败');
+        }
+    }
+
+    goLogin(usernameUrlStr){
+        let _form = this.loginForm;
         //calling get ticket to check whether user exists
         this.loginService.getLoginTicket(usernameUrlStr)
                          .subscribe(
@@ -72,7 +83,7 @@ export class LoginComponent implements OnInit {
                                  //if ticket checks
                                  if(this.ticket != 10001) {
                                      let pswd = _form.getPasswordEncrypted(this.ticket);
-                                     let loginParam = usernameUrlStr + "&" + "password="+pswd;
+                                     let loginParam = usernameUrlStr + "&password="+pswd;
                                      //try log in user
                                      this.loginUser(loginParam);
                                  } else {
@@ -81,7 +92,6 @@ export class LoginComponent implements OnInit {
                                  }
                              },
                              error =>  {this.errorMessage = <any>error}
-        
                          );
     }
 
@@ -96,6 +106,31 @@ export class LoginComponent implements OnInit {
                 },
                 error => {this.errorMessage = <any>error}
             );
+    }
+  
+    signupSubmit(){
+        let _form = this.signupForm;
+
+        if( _form.validateAllInputs() ){
+            if( _form.validatePasswordConfirm() ){
+                let encryptedPwd = _form.getSignupPasswordEncrypted();
+                let signupUrl = _form.getUrlParams(_form.getValuesObjExceptPwd()) + "&password="+encryptedPwd;
+                this.loginService.signupUser(signupUrl)
+                    .subscribe(
+                        code => {
+                            this.signupRtCode = code;
+                            // 0 => success
+                            if(this.signupRtCode == 0) this.router.navigate(['./userpanel']);
+                            console.log("responseCode: "+ this.signupRtCode);
+                        },
+                        error => {this.errorMessage = <any>error}
+                    );
+            }else{
+                console.log('两次输入密码不相同,请确认');
+            }
+        }else{
+            console.log('validateAllInputs 失败');
+        }
     }
 
     go(des) {

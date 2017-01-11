@@ -82,7 +82,7 @@ export class ThirdPartyDivComponent implements OnInit{
         for(let key in this.portalMap){
             this.getPortalHref(key);
         }
-        console.log(this.portalMap);
+        // console.log(this.portalMap);
     }
 
     private getPortalHref(portal){
