@@ -15,7 +15,6 @@ export class LoginService{
     
     loginUser(userInfo:any): Observable<any>{
         let _url = this.loginUrl + "?"+ userInfo;
-        console.log(_url);
         return this.http.get(_url)
                         .map(this.extractLoginRtCode)
                         .catch(this.handleError);
@@ -30,7 +29,6 @@ export class LoginService{
 
     getAppid(thirdParty){
         let _url = this.thirdPartyLoginUrl + thirdParty;
-
         return this.http.get(_url)
                         .map(this.extractAppid)
                         .catch(this.handleError);
@@ -38,11 +36,8 @@ export class LoginService{
 
     signupUser(userInfo:any): Observable<any>{
         let _url = this.signupUrl + '?' + userInfo;
-        console.log(_url);
-
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-
         return this.http.post(_url,userInfo,options)
                         .map(this.extractSignupRtCode)
                         .catch(this.handleError);

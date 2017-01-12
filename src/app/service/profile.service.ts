@@ -11,7 +11,6 @@ export class ProfileService {
 
     updateProfile (profile: string): Observable<any> {
         let _url = this.url + '?' + profile;
-        console.log(_url);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 

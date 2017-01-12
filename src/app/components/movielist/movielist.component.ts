@@ -178,7 +178,7 @@ export class MovielistComponent implements OnInit, OnDestroy{
         );
     }
 
-    private buyTicket(movieid){
+    private buyTicket(movieid, moviename){
         clearInterval(this.timer);
         let _self = this;
 
@@ -188,15 +188,15 @@ export class MovielistComponent implements OnInit, OnDestroy{
         this.movieService.buyTicket(movieid).subscribe(
             (resCode) => {
                 if(resCode == 10001){
-                    _self.dialogOption.content = "亲~同一部电影你只能购买两张票哟!";
+                    _self.dialogOption.content = "亲~《" + moviename + "》你已购买两次啦,同一部电影最多只能购买两张票哟!";
                 } else if(resCode == 0){
-                    _self.dialogOption.content = "恭喜亲~《" + _self.movies[movieid].name + "》电影票1张抢购成功啦!详细信息已发送个人邮箱,请查收~";
+                    _self.dialogOption.content = "恭喜亲~《" + moviename + "》电影票1张抢购成功啦!详细信息已发送个人邮箱,请查收~";
                 } else if(resCode == 40006){
-                    _self.dialogOption.content = "亲~不好意思,《"+ _self.movies[movieid].name +"》电影票卖完啦,下次请早点哟!";
+                    _self.dialogOption.content = "亲~不好意思,《" + moviename + "》电影票卖完啦,下次请早点哟!";
                 } else if(resCode == 40004){
-                    _self.dialogOption.content = "恭喜亲~《" + _self.movies[movieid].name + "》电影票1张抢购成功啦!但是邮件发送失败,抱歉啦!";
+                    _self.dialogOption.content = "恭喜亲~《" + moviename + "》电影票1张抢购成功啦!但是邮件发送失败,抱歉啦!";
                 } else if(resCode == 40002){
-                    _self.dialogOption.content = "亲~网络繁忙," + _self.movies[movieid].name + "》电影票购买失败,抱歉啦!";
+                    _self.dialogOption.content = "亲~网络繁忙," + moviename + "》电影票购买失败,抱歉啦!";
                 }
                 _self.api.dialog(_self.dialogOption);
                 // 当dialog关闭时开启setInterval(或者新开启movieAll即可)
@@ -221,7 +221,7 @@ export class MovielistComponent implements OnInit, OnDestroy{
                         _self.api.dialog(_self.dialogOption);
                     }
                     else if ( resCode == 0 ) {
-                        this.buyTicket(this.movies[index]['id']);
+                        this.buyTicket(this.movies[index]['id'], this.movies[index]['name']);
                     }
                 },
                 error => this.errorMessage = <any>error

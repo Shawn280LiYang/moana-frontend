@@ -17,7 +17,8 @@ import {ApiService} from "../shared/api.service";
     <section>
         <div class="brown-box" style="margin-top: .3rem;">
             <my-listform [config] = "profileConf" [imgConf] = "imgConf" #profileForm></my-listform>
-            <div *ngIf="notify" class="notification">亲~~修改发生了问题,请重试哦~~</div>
+            <div *ngIf="notifyFailure" class="notification">亲~~修改发生了问题,请重试哦~~</div>
+            <div *ngIf="notifySuccess" class="notification">信息更新成功</div>
             <a *ngIf = "!isModifyMode" class="btn-lg-yellow" href="javascript:void(0)" (click)="fireModify()">修改</a>
             <a *ngIf = "isModifyMode" class="btn-lg-red" href="javascript:void(0)" (click)="submit()">确认</a>
             <a class="logout-wrapper" href="{{logoutHref}}">
@@ -86,20 +87,12 @@ export class ProfileComponent implements OnInit{
     profileConf: Formconf = new Formconf('profile');
     imgConf: any = {"imgurl":'',"label":"头像"};
     isModifyMode: boolean = false;
-    notify: boolean = false;
+    notifyFailure: boolean = false;
+    notifySuccess: boolean = false;
     resCode: string;
     errorMessage: string;
     tab:number = 2;
     logoutHref: string;
-    dialogOption: any = {
-        title: '温馨提示',
-        content: '信息更新成功~',
-        okCb: null,
-        okText: '确认',
-        cancelCb: null,
-        cancelText: '取消'
-    };
-
 
     constructor( private router: Router,
                  private api: ApiService,
@@ -116,7 +109,8 @@ export class ProfileComponent implements OnInit{
     }
 
     fireModify(){
-        this.notify = false;
+        this.notifyFailure = false;
+        this.notifySuccess = false;
         this.form.toggleReadonly();
         this.isModifyMode = true;
     }
@@ -140,11 +134,11 @@ export class ProfileComponent implements OnInit{
                     resCode => {
                         this.resCode = resCode;
                         if(resCode == 0) {
+                            this.notifySuccess = true;
                             this.stopModify();
-                            _self.api.dialog(_self.dialogOption);
                         }
                         else {
-                            this.notify = true;
+                            this.notifyFailure = true;
                             this.stopModify();
                         }
                     },
