@@ -1,13 +1,5 @@
 
 /*--------index css--------*/
-
-.wrapper-heade{
-	padding: .26rem .40rem .33rem;
-	background: #fff url("../images/icon-logo.png") no-repeat center;
-    background-size: 2.84rem 2.84rem;
-    vertical-align: middle;
-    box-shadow: 0px 0px 8px #ccc;
-}
 .list-icon-wrapper li{
 	margin-bottom: 0.44rem;
 	width: 50%;
@@ -374,61 +366,6 @@
 }
 /*user profile css ends*/
 
-/*login page css*/
-/*.btn-login{*/
-	/*display: block;*/
-	/*text-align: center;*/
-	/*!*background: #e54847;*!*/
-	/*background:#FFC750;*/
-	/*font-size: 0.30rem;*/
-	/*line-height: 0.8rem;*/
-	/*height: 0.8rem;*/
-	/*border-radius: 0.1rem;*/
-	/*!*border: 1px solid #e54847;*!*/
-	/*border: 1px solid #FFC750;*/
-	/*margin: 0.3rem 0.2rem auto 0.2rem;*/
-	/*!*color: #fff;*!*/
-	/*color: #000;*/
-/*!*}*!*/
-/*.alt-login-wrapper{*/
-	/*position: absolute;*/
-	/*bottom: 1rem;*/
-	/*background: #fff;*/
-	/*border-top: 1px solid #e5e5e5;*/
-	/*display: block;*/
-	/*width: 100%;*/
-/*}*/
-/*.alt-login-wrapper >p{*/
-	/*width: 100%;*/
-	/*text-align: center;*/
-	/*color: #a9a9a9;*/
-	/*line-height: 0.6rem;*/
-	/*margin: 0.3rem auto;*/
-	/*font-size: 0.25rem;*/
-/*}*/
-/*.logo-wrapper{*/
-	/*text-align:center;*/
-	/*margin-bottom: 0.3rem;*/
-/*}*/
-/*.logo-circle{*/
-	/*width:1rem;*/
-	/*height:1rem;*/
-	/*border-radius:0.5rem;*/
-	/*border:1px solid #a9a9a9;*/
-	/*display:inline-block;*/
-	/*margin-left:0.2rem;*/
-	/*background-size:0.5rem auto !important;*/
-/*}*/
-/*.logo-wrapper div:first-child{*/
-	/*margin-left:0;*/
-/*}*/
-/*.wx{*/
-	/*background:url('../images/weixin_logo.png') no-repeat center;*/
-/*}*/
-/*.wb{*/
-	/*background:url('../images/weibo_icon.png') no-repeat center;*/
-/*}*/
-
 .myown-contant small,
 .list-form-traje small{    
 	display: inline-block;
@@ -637,48 +574,6 @@
     border-radius: .06rem;
 }
 /* all icon*/
-.icon-bento{
-	width: .58rem;
-	height: 53rem;
-    background: #FFC502  url("../images/bento.png") no-repeat center;
-    background-size: .58rem .53rem;
-    vertical-align: middle;
-}
-.icon-courier{
-	width: .60rem;
-	height: .57rem;
-    background: #82C7D6 url("../images/courier.png") no-repeat center;
-    background-size: .60rem .57rem;
-    vertical-align: middle;
-}
-.icon-dayin{
-	width: .50rem;
-	height: .58rem;
-    background: #4AB795 url("../images/icon-dayin.png") no-repeat center;
-    background-size: .50rem .58rem;
-    vertical-align: middle;
-}
-.icon-meishi{
-	width: .52rem;
-	height: .41rem;
-    background: #A99B7C url("../images/icon-meishi.png") no-repeat center;
-    background-size: .52rem .41rem;
-    vertical-align: middle;
-}
-.icon-super{
-	width: .54rem;
-	height: .52rem;
-    background: #E25A45 url("../images/super.png") no-repeat center;
-    background-size: .54rem .52rem;
-    vertical-align: middle;
-}
-.icon-shiwu{
-	width: .52rem;
-	height: .51rem;
-    background: #37A0B8 url("../images/icon-shiwu.png") no-repeat center;
-    background-size: .52rem .51rem;
-    vertical-align: middle;
-}
 .header-right{
     margin-right: 0.09rem;
 	width: .21rem;
@@ -901,6 +796,7 @@
 .popup-box-top{
 	margin-top: -2.3rem;
     margin-left: -3.38rem;
+	position: fixed;
 }
 .popup-mask {
 	position: fixed;
@@ -943,7 +839,7 @@
     margin: .38rem 0;
     padding: 0 .48rem;
     line-height: .4rem;
-    height: 2.80rem;
+    /*height: 2.80rem;*/
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
     font-size: .28rem;
@@ -1110,12 +1006,6 @@ background-repeat: no-repeat
     width: 100%;
     top: 2.04rem;
 }
-
-/*.login-input {*/
-	/*height: 0.41rem;*/
-	/*font-size: 0.25rem;*/
-	/*margin-left: 0.10rem;*/
-/*}*/
 
 /* header bar css */
 .header-bar{

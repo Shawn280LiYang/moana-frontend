@@ -1,39 +1,5 @@
 /*general-type css*/
 
-/*.list-general-type{*/
-	/*margin-bottom: 0.12rem;*/
-	/*padding-left: 0.30rem;*/
-	/*background: #fff;*/
-	/*border-bottom: 1px solid #E5E5E5;*/
-	/*border-top: 1px solid #E5E5E5;*/
-/*}*/
-/*.list-general-type > li{*/
-	/*position: relative;*/
-	/*display: -webkit-box; */
-    /*display:-moz-box;*/
-    /*display: box;*/
-	/*padding: 0.30rem 0.30rem 0.30rem 0;*/
-	/*border-bottom:  1px solid #E5E5E5;*/
-	/*font-size: 0.30rem;*/
-	/*color: #666;*/
-	/*line-height: 0.41rem;*/
-/*}*/
-/*.list-general-type > li:last-child{*/
-	/*border-bottom: 0;*/
-/*}*/
-/*.list-general-type > li h4{*/
-    /*-webkit-box-flex:1;*/
-    /*-moz-box-flex: 1; */
-    /*-ms-flex: 1; */
-	/*font-size: 0.30rem;*/
-	/*color: #000;*/
-/*}*/
-/*.list-general-type > li.pack-up{*/
-	/*text-align: center;*/
-	/*margin-top: -1px;*/
-	/*margin-left: -0.30rem;*/
-	/*border-top: 1px solid #E5E5E5;*/
-/*}*/
 .icon-line{
 	position: absolute;
 	top: 0;
@@ -440,7 +406,7 @@
     background-size: .34rem .31rem ;
     vertical-align: middle;
 }
-.super-input{
+.con-heade-input{
 	padding: 0 0.30rem;
 	font-size: 0.30rem;
 	color: #333;

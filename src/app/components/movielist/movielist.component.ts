@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Movie } from '../../shared/movie';
+
 import { MovieService } from '../../service/movie.service';
 import {CheckLoginService} from "../../service/checklogin.service";
 import {Router} from "@angular/router";
+import {Movie} from "../../shared/movie";
+import {ApiService} from "../../shared/api.service";
 
 @Component({
     selector: "my-movielist",
@@ -118,7 +120,18 @@ export class MovielistComponent implements OnInit, OnDestroy{
     timer: any;
     timerInterval: number = 3000;
 
+
+    dialogOption: any = {
+      title: '温馨提示',
+      content: '',
+      okCb: null,
+      okText: '确认',
+      cancelCb: null,
+      cancelText: '取消'
+    };
+    
     constructor(private movieService:MovieService,
+                private api: ApiService,
                 private checkLoginService: CheckLoginService,
                 private router: Router) {
     }
@@ -166,22 +179,50 @@ export class MovielistComponent implements OnInit, OnDestroy{
     }
 
     private buyTicket(movieid){
+        clearInterval(this.timer);
+        let _self = this;
+
+        _self.dialogOption.content = '正在下单,请稍后~';
+        _self.api.dialog(_self.dialogOption);
+
         this.movieService.buyTicket(movieid).subscribe(
             (resCode) => {
-                console.log(resCode);
-                //Do something;
+                if(resCode == 10001){
+                    _self.dialogOption.content = "亲~同一部电影你只能购买两张票哟!";
+                } else if(resCode == 0){
+                    _self.dialogOption.content = "恭喜亲~《" + _self.movies[movieid].name + "》电影票1张抢购成功啦!详细信息已发送个人邮箱,请查收~";
+                } else if(resCode == 40006){
+                    _self.dialogOption.content = "亲~不好意思,《"+ _self.movies[movieid].name +"》电影票卖完啦,下次请早点哟!";
+                } else if(resCode == 40004){
+                    _self.dialogOption.content = "恭喜亲~《" + _self.movies[movieid].name + "》电影票1张抢购成功啦!但是邮件发送失败,抱歉啦!";
+                } else if(resCode == 40002){
+                    _self.dialogOption.content = "亲~网络繁忙," + _self.movies[movieid].name + "》电影票购买失败,抱歉啦!";
+                }
+                _self.api.dialog(_self.dialogOption);
+                // 当dialog关闭时开启setInterval(或者新开启movieAll即可)
+                _self.getMovies();
             },
             error => this.errorMessage = <any>error
         )
     }
 
     checkLogin(index){
+        let _self = this;
+
         this.checkLoginService.checkLogin()
             .subscribe(
                 resCode => {
-                    if ( resCode == 40001 ) this.go('login');
-                    else if ( resCode == 40005 ) this.go('userprofile');
-                    else if ( resCode == 0 ) this.buyTicket(this.movies[index]['id']);
+                    if ( resCode == 40001 ) {
+                        _self.dialogOption.content = "亲~你尚未登录,请点击'我的'按钮,按提示登录后再进行操作~";
+                        _self.api.dialog(_self.dialogOption);
+                    }
+                    else if ( resCode == 40005 ) {
+                        _self.dialogOption.content = "亲~你由第三方首次接入,尚未补全个人信息,请点击'我的'按钮,按提示补全邮箱等信息完成登陆后再进行操作~";
+                        _self.api.dialog(_self.dialogOption);
+                    }
+                    else if ( resCode == 0 ) {
+                        this.buyTicket(this.movies[index]['id']);
+                    }
                 },
                 error => this.errorMessage = <any>error
             );

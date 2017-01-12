@@ -4,6 +4,7 @@ import { Formconf } from "../shared/formconf";
 import {ProfileService} from "../service/profile.service";
 import {FooterService} from "../service/footer.service";
 import {CheckLoginService} from "../service/checklogin.service";
+import {ApiService} from "../shared/api.service";
 @Component({
     selector: 'my-profile',
     template: `
@@ -90,9 +91,18 @@ export class ProfileComponent implements OnInit{
     errorMessage: string;
     tab:number = 2;
     logoutHref: string;
+    dialogOption: any = {
+        title: '温馨提示',
+        content: '信息更新成功~',
+        okCb: null,
+        okText: '确认',
+        cancelCb: null,
+        cancelText: '取消'
+    };
 
 
     constructor( private router: Router,
+                 private api: ApiService,
                  private profileService: ProfileService,
                  private footerService: FooterService,
                  private checkLoginService: CheckLoginService) {
@@ -118,6 +128,7 @@ export class ProfileComponent implements OnInit{
 
     submit(){
         let _form = this.form;
+        let _self = this;
 
         //if validation passed, submit
         if ( _form.validateAllInputs() ) {
@@ -128,7 +139,10 @@ export class ProfileComponent implements OnInit{
                 .subscribe(
                     resCode => {
                         this.resCode = resCode;
-                        if(resCode == 0) this.stopModify();
+                        if(resCode == 0) {
+                            this.stopModify();
+                            _self.api.dialog(_self.dialogOption);
+                        }
                         else {
                             this.notify = true;
                             this.stopModify();

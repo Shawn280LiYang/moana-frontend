@@ -24,7 +24,9 @@ import { CheckLoginService } from "./service/checklogin.service";
 import { ProfileService } from "./service/profile.service";
 import { FooterService } from "./service/footer.service";
 import { ThirdPartyDivComponent } from "./components/thirdPartyDiv/thirdpartydiv.component";
-import {ThirdPartyPanelComponent} from "./panel/thirdpartypanel.component";
+import { ThirdPartyPanelComponent } from "./panel/thirdpartypanel.component";
+import { ApiService } from "./shared/api.service";
+import { DialogComponent } from "./components/dialog/dialog.component";
 
 @NgModule({
   imports: [
@@ -47,7 +49,8 @@ import {ThirdPartyPanelComponent} from "./panel/thirdpartypanel.component";
     ListformComponent,
     InputelementComponent,
     ThirdPartyDivComponent,
-      ThirdPartyPanelComponent,
+    ThirdPartyPanelComponent,
+    DialogComponent,
   ],
   providers: [
       MovieService,
@@ -56,6 +59,7 @@ import {ThirdPartyPanelComponent} from "./panel/thirdpartypanel.component";
       CheckLoginService,
       ProfileService,
       FooterService,
+      ApiService,
   ],
   bootstrap: [AppComponent]
 })

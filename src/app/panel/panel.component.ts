@@ -119,8 +119,6 @@ export class PanelComponent implements OnInit {
                 userData => {
                     _self.userData = userData;
                     _self.orderList = userData['orderDtoList'];
-                    console.log('in component');
-                    console.log(this.userData);
                 },
                 error => this.errorMessage = <any>error
             );
@@ -131,7 +129,7 @@ export class PanelComponent implements OnInit {
             .subscribe(
                 resCode => {
                     if (resCode == 0 ) this.getUserData();
-                    else if (resCode == -1) this.go('profile');
+                    else if (resCode == 40005) this.go('userprofile');
                     else this.go('login');
                 },
                 error => this.errorMessage = <any>error
